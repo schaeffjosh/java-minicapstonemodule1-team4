@@ -37,10 +37,11 @@ public class VendingMachineCLI {
 				case "1":
 					getList.displayProducts();
 					break;
-				// case "2"
-				// Purchase menu
-				//break;
-				case "2":   //TODO rename to case "3" after done with purchase menu
+				case "2":
+					Purchase menu = new Purchase();
+					menu.purchaseMenu();
+					break;
+				case "3":   //TODO rename to case "3" after done with purchase menu
 					System.exit(0);
 				//case "4";
 				//salesReport
