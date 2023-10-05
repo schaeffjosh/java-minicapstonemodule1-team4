@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,12 +15,16 @@ public class Purchase {
     private File log = new File("C:/Users/Student/workspace/java-minicapstonemodule1-team4/capstone/Log.txt");
     Scanner userInput = new Scanner(System.in);
     private double currentMoney = 0.00;
-    private List<StuffedAnimal> productList = new ArrayList<StuffedAnimal>();
+    private List<StuffedAnimal> productList;
+
+    public Purchase(List<StuffedAnimal> list) {
+        this.productList = list;
+    }
 
 
-    public void purchaseMenu(){
+    public void purchaseMenu() {
         boolean stillInMenu = true;
-        while(stillInMenu){
+        while (stillInMenu) {
             System.out.println("Purchase Menu");
             System.out.printf("Current Money Provided: %s", currentMoney);
             System.out.println("\n(1) Feed Money");
@@ -27,46 +33,45 @@ public class Purchase {
             System.out.println("\nSelect an Option");
             String subChoice = userInput.nextLine();
 
-            switch (subChoice){
+            switch (subChoice) {
                 case "1":
                     System.out.println("Enter an amount to feed: $");
                     double amount = Double.parseDouble(userInput.nextLine());
                     feedMoney(amount);
                     break;
                 case "2":
-                        System.out.println(selectProduct());
-                        break;
+                    System.out.println(selectProduct());
+                    break;
 
                 case "3":
                     finishTransaction();
                     stillInMenu = false;
 
             }
-
-
         }
     }
 
-    public double feedMoney (double amountToFeed){
+    public double feedMoney(double amountToFeed) {
         logTransaction("FEED MONEY", amountToFeed);
         currentMoney += amountToFeed;
         return currentMoney;
     }
 
-    public String selectProduct (){
-        ImportFile getProducts = new ImportFile();
-        productList = getProducts.importList();
-        getProducts.displayProducts();
+    public String selectProduct() {
+        System.out.println("Item List");
+        for (StuffedAnimal product : productList) {
+            System.out.println(product.toString());
+        }
 
         String slot = userInput.nextLine();
-            for (StuffedAnimal product : productList) {
-                if(product.getSlot().equalsIgnoreCase(slot)) {
+        for (StuffedAnimal product : productList) {
+            if (product.getSlot().equalsIgnoreCase(slot)) {
                 if (slot.equalsIgnoreCase(product.getSlot()) && !product.isSoldOut() && currentMoney >= product.getPrice()) {
                     currentMoney -= product.getPrice();
                     product.sellOne();
-                    logTransaction(product.getName()+ " " + product.getSlot(), product.getPrice());
+                    logTransaction(product.getName() + " " + product.getSlot(), product.getPrice());
                     return product.getName() + ", " + product.getPrice() + ", " + this.currentMoney + "\n" + product.getMessage();
-                } else if (currentMoney < product.getPrice()){
+                } else if (currentMoney < product.getPrice()) {
                     System.out.println("Not enough funds. Please insert money to continue.");
                 } else {
                     System.out.println("Item is sold out.");
@@ -77,7 +82,7 @@ public class Purchase {
         return "Please enter a valid slot number";
     }
 
-    public void  finishTransaction(){
+    public void finishTransaction() {
         logTransaction("GIVE CHANGE", currentMoney);
         final double QUARTER = 0.25;
         final double DIME = 0.1;
@@ -86,27 +91,28 @@ public class Purchase {
         int dimeCount = 0;
         int nickelCount = 0;
 
-        while(currentMoney != 0.00){
-            if(currentMoney >= QUARTER){
+        while (currentMoney != 0.00) {
+            if (currentMoney >= QUARTER) {
                 quarterCount++;
                 currentMoney -= QUARTER;
-            } else if(currentMoney >= DIME){
+            } else if (currentMoney >= DIME) {
                 dimeCount++;
                 currentMoney -= DIME;
-            } else if(currentMoney >= NICKEL){
+            } else if (currentMoney >= NICKEL) {
                 nickelCount++;
                 currentMoney -= NICKEL;
-            }
-            else {
-                currentMoney = .00;
+            } else {
+                currentMoney = 0.00;
 
             }
         }
-        System.out.printf("Your change is: %s quarters, %s dimes, and %s nickels.", quarterCount,dimeCount,nickelCount);
+        System.out.printf("Your change is: %s quarters, %s dimes, and %s nickels.", quarterCount, dimeCount, nickelCount);
     }
 
     private void logTransaction(String action, double moneyToChange) {
-        LocalDateTime date = LocalDateTime.now();
+        LocalDate date = LocalDate.now();
+        DateFormat formatDate = new SimpleDateFormat("hh:mm:ss aa");
+        String dateString = formatDate.format(new Date());
 
         if (!log.exists()) {
             System.out.println("File not found.");
@@ -116,13 +122,13 @@ public class Purchase {
             System.exit(1);
         }
 
-        try(PrintWriter writer = new PrintWriter(new FileOutputStream(log, true))) {
-            if(action.equals("FEED MONEY")){
-                writer.println(date + " " + action + ": " + "$" + moneyToChange + " $" + currentMoney);
-            } else if(action.equals("GIVE CHANGE")){
-                writer.println(date + " " + action + ": " + "$" + moneyToChange + " $" + (0.00));
+        try (PrintWriter writer = new PrintWriter(new FileOutputStream(log, true))) {
+            if (action.equals("FEED MONEY")) {
+                writer.println(date + " " + dateString + " " + action + ": " + "$" + moneyToChange + " $" + currentMoney);
+            } else if (action.equals("GIVE CHANGE")) {
+                writer.println(date + " " + dateString + " " + action + ": " + "$" + moneyToChange + " $" + (0.00));
             } else {
-                writer.println(date + " " + action + ": " + "$" + moneyToChange + " $" + currentMoney);
+                writer.println(date + " " + dateString + " " + action + ": " + "$" + moneyToChange + " $" + currentMoney);
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
