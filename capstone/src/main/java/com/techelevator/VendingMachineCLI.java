@@ -17,42 +17,20 @@ import java.util.Scanner;
 //TODO: Log Transaction
 
 public class VendingMachineCLI {
-	List<StuffedAnimal> productList = new ArrayList<StuffedAnimal>();
+	List <StuffedAnimal> productList = new ArrayList<>();
+	ImportFile getList = new ImportFile();
 
 	public VendingMachineCLI() {
 
 	}
 
 	public void run() {
-		Scanner userInput = new Scanner(System.in);
-		File vendingMachine = new File("C:/Users/Student/workspace/java-minicapstonemodule1-team4/capstone/vendingmachine.csv");
-
-		if(!vendingMachine.exists()){
-			System.out.println("File not found.");
-			System.exit(1);
-		}else if(!vendingMachine.isFile()){
-			System.out.println("Is not a file.");
-			System.exit(1);
-		}
-
-		try(Scanner reader = new Scanner(vendingMachine)){
-			while(reader.hasNextLine()){
-				String[] itemArr = reader.nextLine().split("\\|");
-				StuffedAnimal product = new StuffedAnimal(itemArr[0], itemArr[1], Double.parseDouble(itemArr[2]), itemArr[3]);
-				productList.add(product);
-			}
-		} catch(FileNotFoundException ex){
-			System.out.println("File not found.");
-		}
+		productList = getList.importList();
 		mainMenu();
 	}
 
-	public void displayProducts(){
-		System.out.println("Item List");
-		for(StuffedAnimal product : productList){
-			System.out.println(product.toString());
-		}
-	}
+
+
 
 
 
@@ -69,7 +47,7 @@ public class VendingMachineCLI {
 
 			switch (choice){    // switching
 				case "1":
-					displayProducts();
+					getList.displayProducts();
 					break;
 				// case "2"
 				// Purchase menu
