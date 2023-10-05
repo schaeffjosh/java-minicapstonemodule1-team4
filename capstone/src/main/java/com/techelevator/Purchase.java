@@ -32,6 +32,7 @@ public class Purchase {
             for (StuffedAnimal product : productList) {
                 if (slot.equals(product.getSlot()) && !product.isSoldOut() && currentMoney >= product.getPrice()) {
                     currentMoney -= product.getPrice();
+                    product.sellOne();
                     logTransaction(product.getName()+ " " + product.getSlot(), product.getPrice());
                     return product.getName() + ", " + product.getPrice() + ", " + this.currentMoney + "\n" + product.getMessage();
                 } else if (currentMoney < product.getPrice()){
