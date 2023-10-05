@@ -1,17 +1,10 @@
 package com.techelevator;
 
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
-//TODO: Purchase class
 //TODO add purchase class to main menu
-//TODO: Feed money
 //TODO: Select Product
 //TODO: Finish Transaction
 //TODO: Log Transaction
@@ -28,11 +21,6 @@ public class VendingMachineCLI {
 		productList = getList.importList();
 		mainMenu();
 	}
-
-
-
-
-
 
 	public void mainMenu(){
 		Scanner input = new Scanner(System.in); //scanner for user input

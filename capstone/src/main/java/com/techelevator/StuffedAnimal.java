@@ -40,6 +40,29 @@ public class StuffedAnimal {
         this.animalType = animalType;
     }
 
+    public boolean isSoldOut(){
+        if(this.amount <= 0){
+            return true;
+        }
+        return false;
+    }
+
+    public String getMessage(){
+        if(animalType.equalsIgnoreCase("pony")){
+            return "Neigh, Neigh, Yay!";
+        }
+        else if(animalType.equalsIgnoreCase("cat")){
+            return "Meow, Meow, Meow!";
+        }
+        else if(animalType.equalsIgnoreCase("penguin")){
+            return "Squawk, Squawk, Whee!";
+        }
+        else if(animalType.equalsIgnoreCase("duck")){
+            return "Quack, Quack, Splash";
+        }
+        return "";
+    }
+
     public StuffedAnimal(String slot, String name, double price, String animalType){
         this.slot = slot;
         this.name = name;
