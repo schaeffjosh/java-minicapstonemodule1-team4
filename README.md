@@ -1,4 +1,4 @@
-## Module 1 Capstone - Vending Machine Software
+q2## Module 1 Capstone - Vending Machine Software
 
 You're developing an application for the newest vending machine distributor,
 CuteCo, Inc. They've just released a new vending machine, the Vendo-Matic 800.

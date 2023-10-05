@@ -3,9 +3,18 @@ package com.techelevator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+
+//TODO: Purchase class
+//TODO add purchase class to main menu
+//TODO: Feed money
+//TODO: Select Product
+//TODO: Finish Transaction
+//TODO: Log Transaction
 
 public class VendingMachineCLI {
 	List<StuffedAnimal> productList = new ArrayList<StuffedAnimal>();
@@ -35,6 +44,7 @@ public class VendingMachineCLI {
 		} catch(FileNotFoundException ex){
 			System.out.println("File not found.");
 		}
+		mainMenu();
 	}
 
 	public void displayProducts(){
@@ -43,12 +53,37 @@ public class VendingMachineCLI {
 			System.out.println(product.toString());
 		}
 	}
-	//TODO: Main menu
-	//TODO: Purchase class
-		//TODO: Feed money
-		//TODO: Select Product
-		//TODO: Finish Transaction
-		//TODO: Log Transaction
+
+
+
+	public void mainMenu(){
+		Scanner input = new Scanner(System.in); //scanner for user input
+		while(true){   //print out options for what specific menu they want
+			System.out.println("\nMain Menu");
+			// print 1,2,3,4
+			System.out.println("(1) Display Item List");
+			System.out.println("(2) Purchase");
+			System.out.println("(3) Exit");
+			System.out.println("\nSelect An Option Please");
+			String choice = input.nextLine();
+
+			switch (choice){    // switching
+				case "1":
+					displayProducts();
+					break;
+				// case "2"
+				// Purchase menu
+				//break;
+				case "2":   //TODO rename to case "3" after done with purchase menu
+					System.exit(0);
+				//case "4";
+				//salesReport
+				//break
+				default:
+			}
+		}
+	}
+
 
 	public static void main(String[] args) {
 		VendingMachineCLI cli = new VendingMachineCLI();
