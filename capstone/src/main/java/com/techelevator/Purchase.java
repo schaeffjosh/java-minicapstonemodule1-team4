@@ -1,9 +1,11 @@
 package com.techelevator;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -68,9 +70,10 @@ public class Purchase {
             if (product.getSlot().equalsIgnoreCase(slot)) {
                 if (slot.equalsIgnoreCase(product.getSlot()) && !product.isSoldOut() && currentMoney >= product.getPrice()) {
                     currentMoney -= product.getPrice();
+                    currentMoney = Math.round(currentMoney*100.0)/100.0;
                     product.sellOne();
                     logTransaction(product.getName() + " " + product.getSlot(), product.getPrice());
-                    return product.getName() + ", " + product.getPrice() + ", " + this.currentMoney + "\n" + product.getMessage();
+                    return product.getName() + ", " + product.getPrice() + ", " + currentMoney + "\n" + product.getMessage();
                 } else if (currentMoney < product.getPrice()) {
                     System.out.println("Not enough funds. Please insert money to continue.");
                 } else {
@@ -91,19 +94,19 @@ public class Purchase {
         int dimeCount = 0;
         int nickelCount = 0;
 
-        while (currentMoney != 0.00) {
-            if (currentMoney >= QUARTER) {
+        while (currentMoney != 0.00){
+            if (currentMoney>= QUARTER){
                 quarterCount++;
                 currentMoney -= QUARTER;
-            } else if (currentMoney >= DIME) {
+            } else if (currentMoney>= DIME) {
                 dimeCount++;
                 currentMoney -= DIME;
-            } else if (currentMoney >= NICKEL) {
+            } else if (currentMoney>= NICKEL) {
                 nickelCount++;
                 currentMoney -= NICKEL;
-            } else {
-                currentMoney = 0.00;
 
+            }else {
+                currentMoney = 0.00;
             }
         }
         System.out.printf("Your change is: %s quarters, %s dimes, and %s nickels.", quarterCount, dimeCount, nickelCount);
