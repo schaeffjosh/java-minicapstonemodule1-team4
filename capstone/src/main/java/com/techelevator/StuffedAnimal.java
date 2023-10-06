@@ -51,6 +51,10 @@ public class StuffedAnimal {
         this.amount--;
     }
 
+    public int getAmount(){
+        return this.amount;
+    }
+
     public String getMessage(){
         if(animalType.equalsIgnoreCase("pony")){
             return "Neigh, Neigh, Yay!";
