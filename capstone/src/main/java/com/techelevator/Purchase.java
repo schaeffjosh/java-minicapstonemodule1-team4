@@ -41,7 +41,7 @@ public class Purchase {
 
             switch (subChoice) {
                 case "1":
-                    System.out.println("Enter an amount to feed: $");
+                    System.out.println("Enter an amount to feed: ");
                     String putIn = userInput.nextLine();
                     double amount = 0;
                     if( putIn.equalsIgnoreCase("")){
@@ -71,27 +71,28 @@ public class Purchase {
         } else if (currentMoney + amountToFeed > 50) {
             System.out.println("You cannot add more than $50");
         }else if(amountToFeed != (int)amountToFeed ){
-            System.out.println("please enter full dollar");}
+            System.out.println("Please enter full dollar");}
         else if (currentMoney + amountToFeed <= 50) {
             currentMoney += amountToFeed;
             return currentMoney;
         }return currentMoney;
     }
 
-
-
-
     public String selectProduct () {
         System.out.println("Item List");
-        for (StuffedAnimal product : productList) {
-            System.out.println(product.toString());
+        if(productList.size() > 0) {
+            for (StuffedAnimal product : productList) {
+                System.out.println(product.toString());
+            }
+            String slot = userInput.nextLine();
+            return dispenseProduct(slot);
+        } else {
+            return "No products to dispense";
         }
-        String slot = userInput.nextLine();
-        return dispenseProduct(slot);
     }
 
 
-    public void finishTransaction () {
+    public int[] finishTransaction () {
         logTransaction("GIVE CHANGE", currentMoney);
         final double QUARTER = 0.25;
         final double DIME = 0.1;
@@ -111,13 +112,14 @@ public class Purchase {
             } else if (currentMoney >= NICKEL) {
                 nickelCount++;
                 currentMoney -= NICKEL;
-
-
             } else {
                 currentMoney = 0.00;
             }
+            currentMoney = Math.round(currentMoney * 100.0)/100.0;
         }
-        System.out.printf("Your change is: %s quarters, %s dimes, and %s nickels.", quarterCount, dimeCount, nickelCount);
+        System.out.printf("Your change is: %s quarters, %s dimes, and %s nickels", quarterCount, dimeCount, nickelCount);
+        int[] returnArr = new int[]{quarterCount, dimeCount, nickelCount};
+        return returnArr;
     }
 
 
@@ -128,10 +130,10 @@ public class Purchase {
 
 
         if (!log.exists()) {
-            System.out.println("File not found.");
+            System.out.println("File not found");
             System.exit(1);
         } else if (!log.isFile()) {
-            System.out.println("Is not a file.");
+            System.out.println("Is not a file");
             System.exit(1);
         }
 
@@ -149,7 +151,7 @@ public class Purchase {
         }
     }
 
-    private String dispenseProduct(String slot){
+    public String dispenseProduct(String slot){
         for (StuffedAnimal product : productList) {
             if (product.getSlot().equalsIgnoreCase(slot)) {
                 if (slot.equalsIgnoreCase(product.getSlot()) && !product.isSoldOut() && currentMoney >= product.getPrice()) {
@@ -159,14 +161,15 @@ public class Purchase {
                     logTransaction(product.getName() + " " + product.getSlot(), product.getPrice());
                     return product.getName() + ", " + product.getPrice() + ", " + currentMoney + "\n" + product.getMessage();
                 } else if (currentMoney < product.getPrice()) {
-                    System.out.println("Not enough funds. Please insert money to continue.");
+                    return "Not enough funds. Please insert money to continue";
                 } else {
-                    System.out.println(product.getSlot() + " | " + product.getName() + " | " + product.getPrice() + " | SOLD OUT");
+                    return product.getSlot() + " | " + product.getName() + " | " + product.getPrice() + " | SOLD OUT";
                 }
             }
         }
 
-
         return "Please enter a valid slot number";
+
+
     }
 }

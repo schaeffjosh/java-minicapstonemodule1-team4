@@ -4,11 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-//TODO add purchase class to main menu
-//TODO: Select Product
-//TODO: Finish Transaction
-//TODO: Log Transaction
-
 public class VendingMachineCLI {
 	List <StuffedAnimal> productList = new ArrayList<>();
 	ImportFile getList = new ImportFile();
