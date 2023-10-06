@@ -71,7 +71,7 @@ public class VendingMachineCLI {
 				writer.println(product.getName() + " | " + abs(product.getAmount() - 5));
 
 			}
-			writer.println("TOTAL SALES: $" + totalSales);
+			writer.println("\nTOTAL SALES: $" + totalSales);
 		}
 		catch(IOException ex){
 			System.out.println("No directory found");
