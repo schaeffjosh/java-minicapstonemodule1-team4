@@ -62,7 +62,7 @@ public class StuffedAnimal {
             return "Squawk, Squawk, Whee!";
         }
         else if(animalType.equalsIgnoreCase("duck")){
-            return "Quack, Quack, Splash";
+            return "Quack, Quack, Splash!";
         }
         return "";
     }
