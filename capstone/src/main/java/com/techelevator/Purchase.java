@@ -86,27 +86,8 @@ public class Purchase {
         for (StuffedAnimal product : productList) {
             System.out.println(product.toString());
         }
-
-
         String slot = userInput.nextLine();
-        for (StuffedAnimal product : productList) {
-            if (product.getSlot().equalsIgnoreCase(slot)) {
-                if (slot.equalsIgnoreCase(product.getSlot()) && !product.isSoldOut() && currentMoney >= product.getPrice()) {
-                    currentMoney -= product.getPrice();
-                    currentMoney = Math.round(currentMoney * 100.0) / 100.0;
-                    product.sellOne();
-                    logTransaction(product.getName() + " " + product.getSlot(), product.getPrice());
-                    return product.getName() + ", " + product.getPrice() + ", " + currentMoney + "\n" + product.getMessage();
-                } else if (currentMoney < product.getPrice()) {
-                    System.out.println("Not enough funds. Please insert money to continue.");
-                } else {
-                    System.out.println(product.getSlot() + " | " + product.getName() + " | " + product.getPrice() + " | SOLD OUT");
-                }
-            }
-        }
-
-
-        return "Please enter a valid slot number";
+        return dispenseProduct(slot);
     }
 
 
@@ -166,5 +147,26 @@ public class Purchase {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private String dispenseProduct(String slot){
+        for (StuffedAnimal product : productList) {
+            if (product.getSlot().equalsIgnoreCase(slot)) {
+                if (slot.equalsIgnoreCase(product.getSlot()) && !product.isSoldOut() && currentMoney >= product.getPrice()) {
+                    currentMoney -= product.getPrice();
+                    currentMoney = Math.round(currentMoney * 100.0) / 100.0;
+                    product.sellOne();
+                    logTransaction(product.getName() + " " + product.getSlot(), product.getPrice());
+                    return product.getName() + ", " + product.getPrice() + ", " + currentMoney + "\n" + product.getMessage();
+                } else if (currentMoney < product.getPrice()) {
+                    System.out.println("Not enough funds. Please insert money to continue.");
+                } else {
+                    System.out.println(product.getSlot() + " | " + product.getName() + " | " + product.getPrice() + " | SOLD OUT");
+                }
+            }
+        }
+
+
+        return "Please enter a valid slot number";
     }
 }
