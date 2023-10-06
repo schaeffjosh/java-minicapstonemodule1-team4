@@ -127,7 +127,7 @@ public class Purchase {
 
         try (PrintWriter writer = new PrintWriter(new FileOutputStream(log, true))) {
             if (action.equals("FEED MONEY")) {
-                writer.println(date + " " + dateString + " " + action + ": " + "$" + moneyToChange + " $" + currentMoney);
+                writer.println(date + " " + dateString + " " + action + ": " + "$" + moneyToChange + " $" + currentMoney + moneyToChange);
             } else if (action.equals("GIVE CHANGE")) {
                 writer.println(date + " " + dateString + " " + action + ": " + "$" + moneyToChange + " $" + (0.00));
             } else {
