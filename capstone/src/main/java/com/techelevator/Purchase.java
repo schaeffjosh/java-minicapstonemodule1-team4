@@ -1,11 +1,10 @@
 package com.techelevator;
 
-import java.awt.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -13,15 +12,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class Purchase {
     private File log = new File("C:/Users/Student/workspace/java-minicapstonemodule1-team4/capstone/Log.txt");
     Scanner userInput = new Scanner(System.in);
     private double currentMoney = 0.00;
     private List<StuffedAnimal> productList;
 
+
     public Purchase(List<StuffedAnimal> list) {
         this.productList = list;
     }
+
+
 
 
     public void purchaseMenu() {
@@ -35,42 +38,62 @@ public class Purchase {
             System.out.println("\nSelect an Option");
             String subChoice = userInput.nextLine();
 
+
             switch (subChoice) {
                 case "1":
                     System.out.println("Enter an amount to feed: $");
-                    double amount = Double.parseDouble(userInput.nextLine());
+                    String putIn = userInput.nextLine();
+                    double amount = 0;
+                    if( putIn.equalsIgnoreCase("")){
+                        amount = 0;
+                    }else {
+                        amount = Double.parseDouble(putIn);
+                    }
                     feedMoney(amount);
                     break;
                 case "2":
                     System.out.println(selectProduct());
                     break;
 
+
                 case "3":
                     finishTransaction();
                     stillInMenu = false;
-
             }
         }
     }
 
+
     public double feedMoney(double amountToFeed) {
         logTransaction("FEED MONEY", amountToFeed);
-        currentMoney += amountToFeed;
-        return currentMoney;
+        if (amountToFeed <= 0) {
+            System.out.println("You must feed more than $0.00");
+        } else if (currentMoney + amountToFeed > 50) {
+            System.out.println("You cannot add more than $50");
+        }else if(amountToFeed != (int)amountToFeed ){
+            System.out.println("please enter full dollar");}
+        else if (currentMoney + amountToFeed <= 50) {
+            currentMoney += amountToFeed;
+            return currentMoney;
+        }return currentMoney;
     }
 
-    public String selectProduct() {
+
+
+
+    public String selectProduct () {
         System.out.println("Item List");
         for (StuffedAnimal product : productList) {
             System.out.println(product.toString());
         }
+
 
         String slot = userInput.nextLine();
         for (StuffedAnimal product : productList) {
             if (product.getSlot().equalsIgnoreCase(slot)) {
                 if (slot.equalsIgnoreCase(product.getSlot()) && !product.isSoldOut() && currentMoney >= product.getPrice()) {
                     currentMoney -= product.getPrice();
-                    currentMoney = Math.round(currentMoney*100.0)/100.0;
+                    currentMoney = Math.round(currentMoney * 100.0) / 100.0;
                     product.sellOne();
                     logTransaction(product.getName() + " " + product.getSlot(), product.getPrice());
                     return product.getName() + ", " + product.getPrice() + ", " + currentMoney + "\n" + product.getMessage();
@@ -82,10 +105,12 @@ public class Purchase {
             }
         }
 
+
         return "Please enter a valid slot number";
     }
 
-    public void finishTransaction() {
+
+    public void finishTransaction () {
         logTransaction("GIVE CHANGE", currentMoney);
         final double QUARTER = 0.25;
         final double DIME = 0.1;
@@ -94,28 +119,32 @@ public class Purchase {
         int dimeCount = 0;
         int nickelCount = 0;
 
-        while (currentMoney != 0.00){
-            if (currentMoney>= QUARTER){
+
+        while (currentMoney != 0.00) {
+            if (currentMoney >= QUARTER) {
                 quarterCount++;
                 currentMoney -= QUARTER;
-            } else if (currentMoney>= DIME) {
+            } else if (currentMoney >= DIME) {
                 dimeCount++;
                 currentMoney -= DIME;
-            } else if (currentMoney>= NICKEL) {
+            } else if (currentMoney >= NICKEL) {
                 nickelCount++;
                 currentMoney -= NICKEL;
 
-            }else {
+
+            } else {
                 currentMoney = 0.00;
             }
         }
         System.out.printf("Your change is: %s quarters, %s dimes, and %s nickels.", quarterCount, dimeCount, nickelCount);
     }
 
-    private void logTransaction(String action, double moneyToChange) {
+
+    private void logTransaction (String action,double moneyToChange){
         LocalDate date = LocalDate.now();
         DateFormat formatDate = new SimpleDateFormat("hh:mm:ss aa");
         String dateString = formatDate.format(new Date());
+
 
         if (!log.exists()) {
             System.out.println("File not found.");
@@ -124,6 +153,7 @@ public class Purchase {
             System.out.println("Is not a file.");
             System.exit(1);
         }
+
 
         try (PrintWriter writer = new PrintWriter(new FileOutputStream(log, true))) {
             if (action.equals("FEED MONEY")) {
