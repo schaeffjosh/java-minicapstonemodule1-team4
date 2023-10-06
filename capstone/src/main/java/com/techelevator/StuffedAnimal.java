@@ -75,12 +75,7 @@ public class StuffedAnimal {
     }
 
     public String toString(){
-        if(!isSoldOut) {
             return this.slot + " | " + this.name + " | " + this.price + " | " + this.amount;
-        }
-        else{
-            return this.slot + " | " + this.name + " | " + this.price + " | SOLD OUT";
-        }
     }
 
 }

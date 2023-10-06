@@ -77,7 +77,7 @@ public class Purchase {
                 } else if (currentMoney < product.getPrice()) {
                     System.out.println("Not enough funds. Please insert money to continue.");
                 } else {
-                    System.out.println("Item is sold out.");
+                    System.out.println(product.getSlot() + " | " + product.getName() + " | " + product.getPrice() + " | SOLD OUT");
                 }
             }
         }

@@ -11,3 +11,16 @@
 2023-10-06 09:11:00 AM Emperor Penguin B1: $2.8 $41.6
 2023-10-06 09:11:04 AM Emperor Penguin B1: $2.8 $38.8
 2023-10-06 09:11:09 AM Emperor Penguin B1: $2.8 $36.0
+2023-10-06 09:15:02 AM FEED MONEY: $50.0 $0.050.0
+2023-10-06 09:15:06 AM Emperor Penguin B1: $2.8 $47.2
+2023-10-06 09:15:08 AM Emperor Penguin B1: $2.8 $44.4
+2023-10-06 09:15:10 AM Emperor Penguin B1: $2.8 $41.6
+2023-10-06 09:15:12 AM Emperor Penguin B1: $2.8 $38.8
+2023-10-06 09:15:15 AM Emperor Penguin B1: $2.8 $36.0
+2023-10-06 09:17:04 AM FEED MONEY: $50.0 $0.050.0
+2023-10-06 09:17:06 AM Emperor Penguin B1: $2.8 $47.2
+2023-10-06 09:17:08 AM Emperor Penguin B1: $2.8 $44.4
+2023-10-06 09:17:10 AM Emperor Penguin B1: $2.8 $41.6
+2023-10-06 09:17:11 AM Emperor Penguin B1: $2.8 $38.8
+2023-10-06 09:17:14 AM Emperor Penguin B1: $2.8 $36.0
+2023-10-06 09:17:22 AM GIVE CHANGE: $36.0 $0.0
