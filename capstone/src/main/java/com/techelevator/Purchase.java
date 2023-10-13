@@ -117,7 +117,7 @@ public class Purchase {
             }
             currentMoney = Math.round(currentMoney * 100.0)/100.0;
         }
-        System.out.printf("Your change is: %s quarters, %s dimes, and %s nickels", quarterCount, dimeCount, nickelCount);
+        System.out.printf("Your change is: %s quarters, %s dimes, and %s nickels\n", quarterCount, dimeCount, nickelCount);
         int[] returnArr = new int[]{quarterCount, dimeCount, nickelCount};
         return returnArr;
     }
@@ -140,9 +140,9 @@ public class Purchase {
 
         try (PrintWriter writer = new PrintWriter(new FileOutputStream(log, true))) {
             if (action.equals("FEED MONEY")) {
-                writer.println(date + " " + dateString + " " + action + ": " + "$" + moneyToChange + " $" + currentMoney + moneyToChange);
+                writer.println(date + " " + dateString + " " + action + ": " + "$" + moneyToChange + " $" + (currentMoney + moneyToChange));
             } else if (action.equals("GIVE CHANGE")) {
-                writer.println(date + " " + dateString + " " + action + ": " + "$" + moneyToChange + " $" + (0.00));
+                writer.println(date + " " + dateString + " " + action + ": " + "$" + moneyToChange + " $" + (currentMoney - moneyToChange));
             } else {
                 writer.println(date + " " + dateString + " " + action + ": " + "$" + moneyToChange + " $" + currentMoney);
             }
@@ -169,7 +169,6 @@ public class Purchase {
         }
 
         return "Please enter a valid slot number";
-
 
     }
 }

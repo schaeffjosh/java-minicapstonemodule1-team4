@@ -1,5 +1,6 @@
 package com.techelevator.Tests;
 
+import com.techelevator.ImportFile;
 import com.techelevator.Purchase;
 import com.techelevator.StuffedAnimal;
 import org.junit.Assert;
@@ -20,6 +21,12 @@ public class tests {
         stuffedAnimalList.add(penguin);
         stuffedAnimalList.add(cat);
         stuffedAnimalList.add(pony);
+    }
+    @Test
+    public void importList(){
+        ImportFile getList = new ImportFile();
+        stuffedAnimalList = getList.importList();
+        Assert.assertEquals(stuffedAnimalList.get(0).toString(), "A1 | Yellow Duck | 0.9 | 5");
     }
     @Test
     public void clearOutItems(){
