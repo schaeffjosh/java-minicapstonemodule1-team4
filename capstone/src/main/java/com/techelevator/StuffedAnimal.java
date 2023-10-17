@@ -79,7 +79,7 @@ public class StuffedAnimal {
     }
 
     public String toString(){
-            return this.slot + " | " + this.name + " | " + this.price + " | " + this.amount;
+            return this.slot + " | " + this.name + " | $" + this.price + " | QTY: " + this.amount;
     }
 
 }

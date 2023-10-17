@@ -54,8 +54,6 @@ public class Purchase {
                 case "2":
                     System.out.println(selectProduct());
                     break;
-
-
                 case "3":
                     finishTransaction();
                     stillInMenu = false;

@@ -26,7 +26,7 @@ public class tests {
     public void importList(){
         ImportFile getList = new ImportFile();
         stuffedAnimalList = getList.importList();
-        Assert.assertEquals(stuffedAnimalList.get(0).toString(), "A1 | Yellow Duck | 0.9 | 5");
+        Assert.assertEquals(stuffedAnimalList.get(0).toString(), "A1 | Yellow Duck | $0.9 | QTY: 5");
     }
     @Test
     public void clearOutItems(){
@@ -66,8 +66,8 @@ public class tests {
     public void stuffedAnimalToString(){
         StuffedAnimal penguin = new StuffedAnimal("B1", "Emperor Penguin", 2.80, "Penguin");
         StuffedAnimal cat = new StuffedAnimal("C1", "Black Cat", 2.25, "Cat");
-        Assert.assertEquals("B1 | Emperor Penguin | 2.8 | 5", penguin.toString());
-        Assert.assertEquals("C1 | Black Cat | 2.25 | 5", cat.toString());
+        Assert.assertEquals("B1 | Emperor Penguin | $2.8 | QTY: 5", penguin.toString());
+        Assert.assertEquals("C1 | Black Cat | $2.25 | QTY: 5", cat.toString());
     }
     @Test
     public void feedMoney(){
